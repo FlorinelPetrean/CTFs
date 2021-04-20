@@ -1,0 +1,18 @@
+# Nmap 7.91 scan initiated Mon Apr 19 10:59:00 2021 as: nmap -Pn -sC -sV -oN nmap/initial 35.198.162.194
+Nmap scan report for 194.162.198.35.bc.googleusercontent.com (35.198.162.194)
+Host is up (0.064s latency).
+Not shown: 993 filtered ports
+PORT      STATE  SERVICE       VERSION
+22/tcp    open   ssh           OpenSSH 8.1 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 54:d5:9a:7a:5f:12:c2:42:37:a4:f1:a8:87:22:e4:49 (RSA)
+|_  256 07:82:1b:65:d9:7c:96:52:08:f3:0e:83:6c:26:fd:2e (ED25519)
+3389/tcp  closed ms-wbt-server
+30000/tcp closed ndmps
+30718/tcp closed unknown
+30951/tcp closed unknown
+31038/tcp closed unknown
+31337/tcp closed Elite
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Apr 19 10:59:09 2021 -- 1 IP address (1 host up) scanned in 9.06 seconds
